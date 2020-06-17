@@ -1,0 +1,53 @@
+enable
+configure terminal 
+hostname SW-01
+enable secret TempleWater-123#
+banner motd "ACESSO APENAS PARA O DEPTO. DE TI DA WATER TEMPLE LTDA."
+username linkdoti privilege 15 secret hey-listen-3*
+ip domain-name watertemple.local
+crypto key generate rsa general-key modulus 1024
+line vty 0 15
+transport input ssh
+password hey-listen-3*
+login
+service password-encryption
+line console 0
+password hey-listen-3*
+vlan 10
+name ADMINISTRACAO
+vlan 20
+name RH
+vlan 30
+name TI
+vlan 40 
+name SERVIDORES
+vlan 50
+name WIFI
+interface fa0/1
+switchport mode access 
+switchport access vlan 10
+interface fa0/2
+switchport mode access
+switchport access vlan 20
+interface fa0/3
+switchport mode access
+switchport access vlan 30
+interface fa0/23
+switchport mode access
+switchport access vlan 40
+interface f0/24
+switchport mode trunk
+switchport trunk native vlan 99
+switchport trunk allowed vlan 10,20,30,40,50,99
+interface g0/1
+switchport mode trunk
+switchport trunk native vlan 99
+switchport trunk allowed vlan 10,20,30,40,50,99
+interface vlan 30
+ip address 172.16.0.98 255.255.255.240
+exit
+interface range fa0/1-22
+shutdown 
+interface range g0/2
+shutdown
+do wr
