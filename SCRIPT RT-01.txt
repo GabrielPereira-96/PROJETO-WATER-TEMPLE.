@@ -1,8 +1,8 @@
-		RT-02
+		RT-01
 
 enable
 configure terminal
-hostname RT-02
+hostname RT-01
 banner motd "ACESSO APENAS PARA O DEPTO. DE TI DA WATER TEMPLE LTDA."
 enable secret TempleWater-123#
 ip domain-name watertemple.local
